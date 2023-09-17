@@ -28,6 +28,12 @@ val Typography = Typography(
         fontFamily = Cormorant,
         fontWeight = FontWeight.Normal,
         fontSize = 24.sp
+    ),
+
+    bodyMedium = TextStyle(
+        fontFamily = Cormorant,
+        fontWeight = FontWeight.Normal,
+        fontSize = 20.sp
     )
 
 )

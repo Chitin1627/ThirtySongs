@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Thirty Songs</string>
+    <string name="song_name">Song Name</string>
+    <string name="artist_name">Artist Name</string>
     <string name="day1">Day 1</string>
     <string name="day2">Day 2</string>
     <string name="day3">Day 3</string>
