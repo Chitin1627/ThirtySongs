@@ -5,11 +5,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -22,6 +24,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -56,7 +61,7 @@ fun Cards() {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.wrapContentHeight(),
         pageCount = items.size,
-        state = pagerState,
+        state = pagerState
     ) { currentPage ->
         SongCard(
             song = items[currentPage],
@@ -81,12 +86,29 @@ fun SongCard(song: Song, modifier: Modifier = Modifier) {
         elevation = CardDefaults.cardElevation(8.dp),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.onTertiaryContainer)
     ) {
-        Column {
+        Column(
+            modifier = Modifier.fillMaxWidth()
+        ) {
             Text(
                 text = stringResource(song.day),
                 style = MaterialTheme.typography.displayLarge,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier
+                    .padding(16.dp)
+                    .align(Alignment.CenterHorizontally)
+            )
+
+            Spacer(modifier = Modifier.padding(4.dp))
+
+            Image(
+                painter = painterResource(song.image),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .size(256.dp)
+                    .align(Alignment.CenterHorizontally)
+                    .clip(RoundedCornerShape(16.dp))
+
             )
 
             Spacer(modifier = Modifier.padding(4.dp))
@@ -95,7 +117,9 @@ fun SongCard(song: Song, modifier: Modifier = Modifier) {
                 text = stringResource(id = song.description),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier
+                    .padding(16.dp)
+                    .align(Alignment.CenterHorizontally)
             )
         }
     }

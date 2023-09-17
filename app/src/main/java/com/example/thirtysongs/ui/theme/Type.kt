@@ -27,7 +27,7 @@ val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = Cormorant,
         fontWeight = FontWeight.Normal,
-        fontSize = 18.sp
+        fontSize = 24.sp
     )
 
 )
