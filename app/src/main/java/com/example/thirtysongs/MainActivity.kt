@@ -88,7 +88,6 @@ fun Cards() {
             modifier = Modifier
                 .fillMaxWidth())
     }
-
 }
 @Composable
 fun SongCard(song: Song, modifier: Modifier = Modifier) {
