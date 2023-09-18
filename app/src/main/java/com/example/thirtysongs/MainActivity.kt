@@ -305,11 +305,13 @@ fun InputFields(
         keyboardOptions = keyboardOptions,
         shape = RoundedCornerShape(24.dp),
         colors = TextFieldDefaults.textFieldColors(
-            textColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            textColor = MaterialTheme.colorScheme.surfaceTint,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
-            focusedLeadingIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            unfocusedLeadingIconColor = MaterialTheme.colorScheme.onPrimaryContainer
+            focusedLeadingIconColor = MaterialTheme.colorScheme.surfaceTint,
+            unfocusedLeadingIconColor = MaterialTheme.colorScheme.surfaceTint,
+            focusedLabelColor = MaterialTheme.colorScheme.surfaceTint,
+            unfocusedLabelColor = MaterialTheme.colorScheme.surfaceTint
         ),
         textStyle = MaterialTheme.typography.bodyMedium
     )
