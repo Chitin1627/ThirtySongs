@@ -24,6 +24,8 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActionScope
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandLess
@@ -53,6 +55,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -137,6 +140,8 @@ fun SongCard(song: Song, modifier: Modifier = Modifier) {
     var songName by remember { mutableStateOf("") }
     var artistName by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
+    var textExpanded by remember { mutableStateOf(false) }
+    print(textExpanded)
     Card(
         shape = RoundedCornerShape(32.dp),
         modifier = modifier
@@ -196,9 +201,17 @@ fun SongCard(song: Song, modifier: Modifier = Modifier) {
 
             Spacer(modifier = Modifier.padding(4.dp))
 
+            if(textExpanded) {
+                TextInputs(songName = songName, artistName = artistName)
+            }
+
+            Spacer(modifier = Modifier.padding(4.dp))
+
             ExpandButton(
                 expanded = expanded,
-                onClick = {expanded = !expanded},
+                onClick = {
+                    expanded = !expanded
+                    textExpanded = false},
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
@@ -213,6 +226,10 @@ fun SongCard(song: Song, modifier: Modifier = Modifier) {
                     keyboardOptions = KeyboardOptions.Default.copy(
                         imeAction = ImeAction.Next
                     ),
+                    keyboardActions = {
+                        expanded = !expanded
+                        textExpanded = true
+                    },
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                 )
@@ -227,6 +244,10 @@ fun SongCard(song: Song, modifier: Modifier = Modifier) {
                     keyboardOptions = KeyboardOptions.Default.copy(
                         imeAction = ImeAction.Done
                     ),
+                    keyboardActions = {
+                            expanded = !expanded
+                            textExpanded = true
+                    },
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .padding(bottom = 8.dp)
@@ -234,6 +255,7 @@ fun SongCard(song: Song, modifier: Modifier = Modifier) {
 
                 Spacer(modifier = Modifier.padding(4.dp))
             }
+
         }
     }
 }
@@ -264,6 +286,7 @@ fun InputFields(
     value: String,
     onValueChanged: (String) -> Unit,
     keyboardOptions: KeyboardOptions,
+    keyboardActions: (KeyboardActionScope) -> Unit,
     modifier: Modifier = Modifier) {
 
     TextField(
@@ -273,6 +296,7 @@ fun InputFields(
             contentDescription = null,
             modifier = Modifier.size(24.dp)) },
         onValueChange = onValueChanged,
+        keyboardActions = KeyboardActions(onDone = keyboardActions),
         modifier = modifier
             .fillMaxWidth()
             .padding(start = 32.dp, end = 32.dp),
@@ -281,11 +305,40 @@ fun InputFields(
         keyboardOptions = keyboardOptions,
         shape = RoundedCornerShape(24.dp),
         colors = TextFieldDefaults.textFieldColors(
+            textColor = MaterialTheme.colorScheme.onPrimaryContainer,
             focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent
+            unfocusedIndicatorColor = Color.Transparent,
+            focusedLeadingIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            unfocusedLeadingIconColor = MaterialTheme.colorScheme.onPrimaryContainer
         ),
         textStyle = MaterialTheme.typography.bodyMedium
     )
+}
+
+@Composable
+fun TextInputs(
+    songName: String,
+    artistName: String,
+    modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(
+            text = "Song: $songName",
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.ExtraBold,
+            color = MaterialTheme.colorScheme.onPrimaryContainer
+        )
+
+        Text(
+            text = "Artist: $artistName",
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onPrimaryContainer
+        )
+    }
 }
 
 
