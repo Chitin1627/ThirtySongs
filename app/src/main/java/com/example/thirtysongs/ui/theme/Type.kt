@@ -34,6 +34,12 @@ val Typography = Typography(
         fontFamily = Cormorant,
         fontWeight = FontWeight.Normal,
         fontSize = 20.sp
-    )
+    ),
+
+    titleLarge = TextStyle(
+        fontFamily = CroissantOne,
+        fontWeight = FontWeight.Bold,
+        fontSize = 36.sp
+    ),
 
 )
